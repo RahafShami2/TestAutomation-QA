@@ -1,6 +1,4 @@
-
-
-describe('My First Test', () => {
+describe('SkillMatch Test', () => {
 
 
   beforeEach(() => {
@@ -191,8 +189,6 @@ describe('My First Test', () => {
     //here we get the ratingme to make review for the course and we acsses to first child in label's of "☆" and click on it 
     //the result is reviewing the first course with one stare.
     cy.get('div.ratingme > label:nth-child(1)').click()
-
-
     GetSearchPage()
    
     //here we get the href for the secound result "searchItem_2" from search result and visit it by it's URL 'https://skillsmatch.mdx.ac.uk/'+href.
@@ -201,7 +197,6 @@ describe('My First Test', () => {
         .then(href => {
             cy.visit('https://skillsmatch.mdx.ac.uk/'+href);
     });  
-
     //here we get the ratingme to make review for the course and we acsses to fifth child in label's of "☆" and click on it 
     //the result is reviewing the first course with five stare.    
     cy.get('div.ratingme > label:nth-child(5)').click()
@@ -229,7 +224,94 @@ describe('My First Test', () => {
       CompairUserReview(starsCount)
     })
 
-})
+  })
+
+    //This is our secound test case to Verify search page With cource contains all of the keywords :
+    it('Verify search page With cource contains all of the keywords .', () => {
+
+      //first we get href for search link in tap bar and we pass it's xpath to get function in cypress
+      //then we visit search page py 'https://skillsmatch.mdx.ac.uk/'+href url.  
+      cy.get('div.navbar-collapse > ul > li:nth-child(3) > a')
+          .invoke('attr', 'href')
+          .then(href => {
+              cy.visit('https://skillsmatch.mdx.ac.uk/'+href);
+      });
+  
+      // we initailize an constant variable (SKIKK_KEY_WORD) and assign it's value with 'software'
+      const SKIKK_KEY_WORD = 'software'
+      // we initailize an constant variable (SKIKK_KEY_WORD2) and assign it's value with 'java'
+      const SKIKK_KEY_WORD2 = 'java'
+      //enter SKIKK_KEY_WORD > 'software' in tagify__input or search input and press enter :
+      cy.get('[class=tagify__input]').type(`${SKIKK_KEY_WORD}`).type('{enter}');
+      //enter SKIKK_KEY_WORD2 > 'software' in tagify__input or search input and press enter :
+      cy.get('[class=tagify__input]').type(`${SKIKK_KEY_WORD2}`).type('{enter}');
+      //get AdvancedOptions Button element and click on it:
+      cy.get('[test-data=AdvancedOptions]').click()
+      //get the input of first child "With all of the keywords" for AdvancedOptions and click on it:
+      cy.get('div.card-body > div:nth-child(1)>input').click();
+      //get search Button element and click on it:
+      cy.get('[test-data=searchButton]').click()
+      //we initailize an variable (MatchedKeywordIndex) with initial value -1 : to using it to acsses to the MatchedKeywords .
+      let MatchedKeywordIndex = -1;
+      //get search-result-box element witch have all search results :
+      //for each div in search-result-box we will get search-item  elements and pass on each span element on it
+      //then check if MatchedKeywords(MatchedKeywordIndex) hahve software or java key words respectively.
+      cy.get('.search-result-box')    
+          .each($div => {
+                  cy.get('.search-item')    
+                  .each($span => {
+  
+                    MatchedKeywordIndex+=1;
+                    cy.get('[test-data=MatchedKeywords]').eq(MatchedKeywordIndex).should('have.text' , '\n            software\n        ')
+  
+                    MatchedKeywordIndex+=1;
+                    cy.get('[test-data=MatchedKeywords]').eq(MatchedKeywordIndex).should('have.text' , '\n            java\n        ')
+                    
+                  })
+          })
+    })
+  
+    //This is our secound test case to Verify search page With cource contains all of the keywords :
+    it('Verify search page with Translate arabic word input to English .', () => {
+  
+      //first we get href for search link in tap bar and we pass it's xpath to get function in cypress
+      //then we visit search page py 'https://skillsmatch.mdx.ac.uk/'+href url.  
+      cy.get('div.navbar-collapse > ul > li:nth-child(3) > a')
+          .invoke('attr', 'href')
+          .then(href => {
+              cy.visit('https://skillsmatch.mdx.ac.uk/'+href);
+      });
+  
+      // we initailize an constant variable (SKIKK_KEY_WORD) and assign it's value with 'تصنيفات'
+      const SKIKK_KEY_WORD = 'تصنيفات'
+      //enter SKIKK_KEY_WORD > 'تصنيفات' in tagify__input or search input and press enter :
+      cy.get('[class=tagify__input]').type(`${SKIKK_KEY_WORD}`).type('{enter}');
+  
+      //get AdvancedOptions Button element and click on it:
+      cy.get('[test-data=AdvancedOptions]').click()
+      //get translateInput element and select English from it :
+      cy.get('[test-data=translateInput]').select("English")
+      //get search Button element and click on it:
+      cy.get('[test-data=searchButton]').click()
+  
+      //we initailize an variable (MatchedKeywordIndex) with initial value -1 : to using it to acsses to the MatchedKeywords .
+      let MatchedKeywordIndex =-1;
+  
+      //get search-result-box element witch have all search results :
+      //for each div in search-result-box we will get search-item  elements and pass on each span element on it
+      //then check if MatchedKeywords(MatchedKeywordIndex) have ratings(Translate "التصنيفات" in English) or not.
+      cy.get('.search-result-box')    
+          .each($div => {
+                  cy.get('[class=search-item]')    
+                  .each($span => {
+  
+                      MatchedKeywordIndex+=1;
+                      cy.get('[test-data=MatchedKeywords]').eq(MatchedKeywordIndex).should('have.text' , '\n            ratings\n        ')
+  
+                  })
+          })
+    })
+  
 
 })
       
