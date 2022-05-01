@@ -23,7 +23,7 @@ describe('SkillMatch Test', () => {
     
   })
 
- 
+ //TS2 ---> TC1
   //This is our first test case to Verify search page with generating the correct result or not by adding valid search :
   it('Verify search page with generating the correct result or not by adding valid search', () => {
     
@@ -172,7 +172,8 @@ describe('SkillMatch Test', () => {
     
   }
 
-  //This is our secound test case to Verify search page with generating the correct result or not by adding valid search :
+  // //TS2 ---> TC4
+  //This is our Fourth test case to Verify search page with generating the correct result or not by adding valid search :
   it('Verify search page With Sort result based on user reviews', () => {
 
     //first we get href for search link in tap bar and we pass it's xpath to get function in cypress
@@ -226,6 +227,7 @@ describe('SkillMatch Test', () => {
 
   })
 
+   //TS2 ---> TC2
     //This is our secound test case to Verify search page With cource contains all of the keywords :
     it('Verify search page With cource contains all of the keywords .', () => {
 
@@ -271,7 +273,8 @@ describe('SkillMatch Test', () => {
           })
     })
   
-    //This is our secound test case to Verify search page With cource contains all of the keywords :
+   //TS2 ---> TC5
+    //This is our Fifth test case to Verify search page With Translate arabic word input to English :
     it('Verify search page with Translate arabic word input to English .', () => {
   
       //first we get href for search link in tap bar and we pass it's xpath to get function in cypress
