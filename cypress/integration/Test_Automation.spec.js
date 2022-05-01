@@ -245,7 +245,7 @@ describe('SkillMatch Test', () => {
       const SKIKK_KEY_WORD2 = 'java'
       //enter SKIKK_KEY_WORD > 'software' in tagify__input or search input and press enter :
       cy.get('[class=tagify__input]').type(`${SKIKK_KEY_WORD}`).type('{enter}');
-      //enter SKIKK_KEY_WORD2 > 'software' in tagify__input or search input and press enter :
+      //enter SKIKK_KEY_WORD2 > 'java' in tagify__input or search input and press enter :
       cy.get('[class=tagify__input]').type(`${SKIKK_KEY_WORD2}`).type('{enter}');
       //get AdvancedOptions Button element and click on it:
       cy.get('[test-data=AdvancedOptions]').click()
